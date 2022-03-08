@@ -33,6 +33,12 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme:const AppBarTheme(
+          color: kSecondColor,
+          shadowColor: kThirdColor,
+        ),
+      ),
       home: token== 'noToken' ? const FirstScreen() : const HomeScreen(),
     );
   }

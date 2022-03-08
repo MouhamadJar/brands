@@ -40,7 +40,12 @@ dependencies:
   google_fonts:
   carousel_slider:
   flutter_zoom_drawer:
-  auto_size_text: 
+  auto_size_text:
+  water_drop_nav_bar:
+  font_awesome_flutter:
+  flutter_svg:
+  image_picker:
+
   #Firebase
   firebase_core:
   firebase_auth:

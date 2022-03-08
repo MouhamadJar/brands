@@ -1,5 +1,4 @@
 import 'package:brands_projects/view/auth/first_screen.dart';
-import 'package:brands_projects/view/auth/login.dart';
 import 'package:brands_projects/view/home/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -29,7 +28,7 @@ class CacheController extends GetxController {
 
   Widget getHomeScreen() {
     return isLogin ?
-         HomeScreen()
-        : FirstScreen();
+          const HomeScreen()
+        : const FirstScreen();
   }
 }

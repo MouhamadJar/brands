@@ -66,7 +66,7 @@ class PhoneSpecs extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                maxLines: 5,
+                maxLines: 7,
                 minFontSize: kSubTitleFontSize,
                 maxFontSize: kTitleFontSize,
               ),

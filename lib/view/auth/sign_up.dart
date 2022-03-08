@@ -2,7 +2,6 @@ import 'package:brands_projects/component/constants.dart';
 import 'package:brands_projects/controllers/firebase_controller.dart';
 import 'package:brands_projects/controllers/text_controller.dart';
 import 'package:brands_projects/view/auth/login.dart';
-import 'package:brands_projects/view/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../component/components.dart';

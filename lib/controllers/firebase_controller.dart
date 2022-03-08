@@ -13,7 +13,7 @@ import 'package:get_storage/get_storage.dart';
 
 class FirebaseController extends GetxController {
   Future<void> login({required email, required password}) async {
-    var cacheController = Get.put(CacheController());
+
     GetStorage().write('token', 'token');
     GetStorage().write('email', email);
     FirebaseAuth.instance
@@ -57,7 +57,7 @@ class FirebaseController extends GetxController {
             Get.snackbar('Hello $username ', 'Signup successfully !',);
             Get.offAll(() => const HomeScreen());
             try {
-              var userController = Get.put(USERModel());
+
               USER user = USER(
                 username: username,
                 email: email,

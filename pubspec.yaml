@@ -46,10 +46,12 @@ dependencies:
   flutter_svg:
   image_picker:
 
+
   #Firebase
   firebase_core:
   firebase_auth:
   cloud_firestore:
+  firebase_storage:
 
 dev_dependencies:
   flutter_test:

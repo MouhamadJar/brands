@@ -17,26 +17,31 @@ class BrandsScreen extends StatelessWidget {
       padding: EdgeInsets.all(width * .0),
       child: Column(
         children: [
-          Brand(
-            width: width,
-            height: height,
-            brandImage: 'images/Samsung_Logo.png',
-            onTap: () {
-              Get.to( () =>const BrandMobiles(brand: 's'));
-            },
-            splash: Colors.blueGrey.withOpacity(0.4),
-            highlight: Colors.blue.withOpacity(0.35),
+          Row(
+            children: [
+              Brand(
+                width: width*.5,
+                height: height,
+                brandImage: 'images/Samsung_Logo.png',
+                onTap: () {
+                  Get.to( () =>const BrandMobiles(brand: 's'));
+                },
+                splash: Colors.blueGrey.withOpacity(0.4),
+                highlight: Colors.blue.withOpacity(0.35),
+              ),
+              Brand(
+                width: width*.5,
+                height: height,
+                brandImage: 'images/Xiaomi-Logo.png',
+                onTap: () {
+                  Get.to( () =>const BrandMobiles(brand: 'x'));
+                },
+                splash: Colors.deepOrange.withOpacity(0.4),
+                highlight: Colors.orange.withOpacity(0.35),
+              ),
+            ],
           ),
-          Brand(
-            width: width,
-            height: height,
-            brandImage: 'images/Xiaomi-Logo.png',
-            onTap: () {
-              Get.to( () =>const BrandMobiles(brand: 'x'));
-            },
-            splash: Colors.deepOrange.withOpacity(0.4),
-            highlight: Colors.orange.withOpacity(0.35),
-          ),
+
           Brand(
             width: width,
             height: height,

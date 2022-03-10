@@ -15,7 +15,7 @@ class TextController extends GetxController{
     return fontSize[type];
   }
   TextStyle getTextStyle({style}){
-    return GoogleFonts.robotoMono(
+    return GoogleFonts.sourceCodePro(
       textStyle: style,
     );
   }

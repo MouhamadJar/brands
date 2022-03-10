@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
 
     var textController = Get.put(TextController());
     var homeController = Get.put(HomeController(), permanent: true);
-    var userController = Get.put(USERModel());
+    var userController = Get.put(USERModel(),permanent: true);
     var cacheController = Get.put(CacheController());
     var firebaseController = Get.put(FirebaseController());
     return SafeArea(
@@ -51,163 +51,31 @@ class HomeScreen extends StatelessWidget {
                   uId: cacheController.getCache(key: 'uId'),
                   profileImage: myProfile['image']);
               userController.update();
-              return ZoomDrawer(
-                style: DrawerStyle.DefaultStyle,
-                menuScreen: Scaffold(
-                  backgroundColor: kSecondColor,
-                  body: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: width * .4, vertical: height * .015),
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(userController.me.image),
-                          radius: 40,
+              return GetBuilder<HomeController>(
+                builder: (controller) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Center(child: Image.asset(
+                        'images/Group 28.png',
+                        height: height*.08,
                         ),
                       ),
-                      ListTile(
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: width * .4),
-                        title: FittedBox(
-                          child: Text(
-                            userController.me.username,
-                            style: textController.getTextStyle(
-                              style: const TextStyle(
-                                color: kThirdColor,
-                                fontSize: kSubTitleFontSize,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      ListTile(
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: width * .15),
-                        title: FittedBox(
-                          child: Text(
-                            userController.me.email,
-                            style: textController.getTextStyle(
-                              style: const TextStyle(
-                                color: kThirdColor,
-                                fontSize: kSubTitleFontSize,
-                              ),
-                            ),
-                          ),
-                        ),
-                        leading: Icon(
-                          Icons.email_outlined,
-                          color: kThirdColor,
-                          size: width * .07,
-                        ),
-                      ),
-                      Divider(
-                        color: kThirdColor,
-                        height: height * .07,
-                        endIndent: width * .07,
-                        indent: width * .07,
-                      ),
-                      SizedBox(
-                        height: height * .07,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.to( () =>  UpdateProfile());
-                        },
-                        child: ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: width * .05),
-                          title: Text(
-                            'update profile',
-                            style: textController.getTextStyle(
-                              style: const TextStyle(
-                                color: kThirdColor,
-                                fontSize: kSubTitleFontSize,
-                              ),
-                            ),
-                          ),
-                          leading: Icon(
-                            Icons.person,
-                            color: kThirdColor,
-                            size: width * .07,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(kSecondColor),
-                        ),
-                      ),
-                      SizedBox(
-                        height: height * .07,
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          firebaseController.signOut();
-                          await GetStorage().remove('token');
-                          Get.offAll(() => const FirstScreen());
-                        },
-                        child: ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: width * .05),
-                          title: Text(
-                            'log out',
-                            style: textController.getTextStyle(
-                              style: const TextStyle(
-                                color: kThirdColor,
-                                fontSize: kSubTitleFontSize,
-                              ),
-                            ),
-                          ),
-                          leading: Icon(
-                            Icons.logout_outlined,
-                            color: kThirdColor,
-                            size: width * .07,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(kSecondColor),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                mainScreen: GetBuilder<HomeController>(
-                  builder: (controller) {
-                    return Scaffold(
-                      appBar: AppBar(
-                        title: Padding(
-                          padding: EdgeInsets.only(left: width*.17),
-                          child: Image.asset('images/Group 28.png',height: height*.08,),
-                        ),
-                        leading: Builder(builder: (context) {
-                          return IconButton(
-                              onPressed: () {
-                                ZoomDrawer.of(context)!.toggle();
-                              },
-                              icon: const Icon(
-                                Icons.menu_outlined,color: kThirdColor,
-                              ),
+                    ),
+                    body: homeController.body[homeController.index.value],
+                    bottomNavigationBar: GetBuilder<HomeController>(
+                        builder: (controller) {
+                          return WaterDropNavBar(
+                            barItems: controller.navBarItems,
+                            selectedIndex: controller.index.value,
+                            onItemSelected: (index) {
+                              controller.navigatePages(index);
+                            },
+                            waterDropColor: kSecondColor,
                           );
-                        }),
-                      ),
-                        body: homeController.body[homeController.index.value],
-                      bottomNavigationBar: GetBuilder<HomeController>(
-                          builder: (controller) {
-                            return WaterDropNavBar(
-                              barItems: controller.navBarItems,
-                              selectedIndex: controller.index.value,
-                              onItemSelected: (index) {
-                                controller.navigatePages(index);
-                              },
-                              waterDropColor: kSecondColor,
-                            );
-                          }
-                      ),
-                    );
-                  },
-                ),
+                        }
+                    ),
+                  );
+                },
               );
             }
             return const Scaffold(
@@ -216,23 +84,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-//SliverAppBar(
-//           backgroundColor: kSecondColor,
-//           leading: Builder(builder: (context) {
-//             return IconButton(
-//                 onPressed: () {
-//                   ZoomDrawer.of(context)!.toggle();
-//                 },
-//                 icon: const Icon(Icons.menu_outlined));
-//           }),
-//           title: Text(
-//             'Home',
-//             style: textController.getTextStyle(
-//                 style: const TextStyle(
-//                   color: kThirdColor,
-//                   fontSize: kTitleFontSize,
-//                 )),
-//           ),
-//           expandedHeight: height * .07,
-//           shadowColor: Colors.black,
-//         ),

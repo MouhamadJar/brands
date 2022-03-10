@@ -14,11 +14,12 @@ import 'package:get_storage/get_storage.dart';
 class FirebaseController extends GetxController {
   Future<void> login({required email, required password}) async {
 
-    GetStorage().write('token', 'token');
-    GetStorage().write('email', email);
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) async {
+      GetStorage().write('token', 'token');
+      GetStorage().write('email', email);
+      GetStorage().write('uId', value.user!.uid);
       Get.snackbar('Welcome back ', 'Login successfully !',);
       Get.offAll(() => const HomeScreen());
     }).catchError((error) {
@@ -45,6 +46,8 @@ class FirebaseController extends GetxController {
         .then(
             (value) async {
           GetStorage().write('token', value.user!.getIdToken());
+          GetStorage().write('uId', value.user!.uid);
+          cacheController.saveCache(key: 'email', value: value.user!.email);
           await FirebaseFirestore.instance
               .collection('users')
               .doc(value.user?.uid)
@@ -53,29 +56,9 @@ class FirebaseController extends GetxController {
             'email': email,
             'password': password,
             'image': 'https://cdn5.vectorstock.com/i/thumb-large/45/79/male-avatar-profile-picture-silhouette-light-vector-4684579.jpg',
-          }).then((valuee) async {
+          }).then((value) async {
             Get.snackbar('Hello $username ', 'Signup successfully !',);
             Get.offAll(() => const HomeScreen());
-            try {
-
-              USER user = USER(
-                username: username,
-                email: email,
-                password: password,
-                uId: value.user!.uid,
-                image: 'https://cdn5.vectorstock.com/i/thumb-large/45/79/male-avatar-profile-picture-silhouette-light-vector-4684579.jpg',
-              );
-              cacheController.saveCache(key: 'username', value: user.username);
-              cacheController.saveCache(key: 'email', value: user.email);
-              cacheController.saveCache(key: 'password', value: user.password);
-              cacheController.saveCache(key: 'uId', value: user.uId);
-              cacheController.saveCache(key: 'image',
-                  value: 'https://cdn5.vectorstock.com/i/thumb-large/45/79/male-avatar-profile-picture-silhouette-light-vector-4684579.jpg');
-            } catch (e) {
-              if (kDebugMode) {
-                print('err\n' + e.toString());
-              }
-            }
           });
         }).catchError((error) {
       Fluttertoast.showToast(

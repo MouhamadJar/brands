@@ -2,8 +2,9 @@
     package="com.example.brands_projects">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="brands_projects"
+        android:label="Go Mobiles"
         android:name="${applicationName}"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

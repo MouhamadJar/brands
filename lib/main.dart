@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GetMaterialApp(
+      title: 'Go Mobiles',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme:const AppBarTheme(

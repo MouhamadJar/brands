@@ -2,6 +2,7 @@ import 'package:brands_projects/models/slider_model.dart';
 import 'package:brands_projects/view/home/brands_screen.dart';
 import 'package:brands_projects/view/home/home.dart';
 import 'package:brands_projects/view/home/my_home.dart';
+import 'package:brands_projects/view/home/my_orders.dart';
 import 'package:brands_projects/view/home/my_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class HomeController extends GetxController {
   List<PhoneModel> fullRealmeItem = [];
 
 
-  ///bottom Nav Bar
+  ///bottom Nav Bar Items
    List<BarItem> navBarItems =[
      BarItem(
        filledIcon: Icons.person,
@@ -75,8 +76,12 @@ class HomeController extends GetxController {
        outlinedIcon: Icons.home_outlined,
      ),
      BarItem(
-       filledIcon: Icons.account_tree,
-       outlinedIcon: Icons.account_tree_outlined,
+       filledIcon: Icons.phonelink_ring_outlined,
+       outlinedIcon: Icons.phone_android_outlined,
+     ),
+     BarItem(
+       filledIcon: Icons.shopping_cart_rounded,
+       outlinedIcon: Icons.shopping_cart_outlined,
      ),
    ];
 
@@ -85,6 +90,7 @@ class HomeController extends GetxController {
      const MyProfile(),
      const MyHome(),
      const BrandsScreen(),
+     const MyOrders(),
    ];
 
    ///Nav Bar index

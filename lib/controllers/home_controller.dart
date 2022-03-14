@@ -1,12 +1,13 @@
+import 'package:brands_projects/models/order_model.dart';
 import 'package:brands_projects/models/slider_model.dart';
 import 'package:brands_projects/view/home/brands_screen.dart';
-import 'package:brands_projects/view/home/home.dart';
 import 'package:brands_projects/view/home/my_home.dart';
 import 'package:brands_projects/view/home/my_orders.dart';
 import 'package:brands_projects/view/home/my_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class HomeController extends GetxController {
@@ -27,6 +28,7 @@ class HomeController extends GetxController {
         .get();
     return (response.docs);
   }
+
   Future<dynamic> getLatestXiaomiItem() async {
     QuerySnapshot<Map<String, dynamic>> response = await FirebaseFirestore
         .instance
@@ -36,12 +38,24 @@ class HomeController extends GetxController {
         .get();
     return (response.docs);
   }
+
   Future<dynamic> getLatestRealmeItem() async {
     QuerySnapshot<Map<String, dynamic>> response = await FirebaseFirestore
         .instance
         .collection('database')
         .doc('brands')
         .collection('realme')
+        .get();
+    return (response.docs);
+  }
+
+  ///get my orders
+
+  Future<dynamic> getMyOrders() async {
+    QuerySnapshot<Map<String, dynamic>> response = await FirebaseFirestore
+        .instance
+        .collection('orders')
+        .where('uId', isEqualTo: GetStorage().read('uId'))
         .get();
     return (response.docs);
   }
@@ -54,6 +68,7 @@ class HomeController extends GetxController {
   RxBool fullSamsungItemsIsLoading = true.obs;
   RxBool fullXiaomiItemsIsLoading = true.obs;
   RxBool fullRealmeItemsIsLoading = true.obs;
+  RxBool myOrdersIsLoading = true.obs;
 
   ///Item List
   List<PhoneModel> sliderData = [];
@@ -63,48 +78,50 @@ class HomeController extends GetxController {
   List<PhoneModel> fullSamsungItem = [];
   List<PhoneModel> fullXiaomiItem = [];
   List<PhoneModel> fullRealmeItem = [];
-
+  List<OrderModel> myOrders = [];
 
   ///bottom Nav Bar Items
-   List<BarItem> navBarItems =[
-     BarItem(
-       filledIcon: Icons.person,
-       outlinedIcon: Icons.person_outlined,
-     ),
-     BarItem(
-       filledIcon: Icons.home,
-       outlinedIcon: Icons.home_outlined,
-     ),
-     BarItem(
-       filledIcon: Icons.phonelink_ring_outlined,
-       outlinedIcon: Icons.phone_android_outlined,
-     ),
-     BarItem(
-       filledIcon: Icons.shopping_cart_rounded,
-       outlinedIcon: Icons.shopping_cart_outlined,
-     ),
-   ];
+  List<BarItem> navBarItems = [
+    BarItem(
+      filledIcon: Icons.person,
+      outlinedIcon: Icons.person_outlined,
+    ),
+    BarItem(
+      filledIcon: Icons.home,
+      outlinedIcon: Icons.home_outlined,
+    ),
+    BarItem(
+      filledIcon: Icons.phonelink_ring_outlined,
+      outlinedIcon: Icons.phone_android_outlined,
+    ),
+    BarItem(
+      filledIcon: Icons.shopping_cart_rounded,
+      outlinedIcon: Icons.shopping_cart_outlined,
+    ),
+  ];
 
-   ///body screens
-   List<Widget> body =[
-     const MyProfile(),
-     const MyHome(),
-     const BrandsScreen(),
-     const MyOrders(),
-   ];
+  ///body screens
+  List<Widget> body = [
+    const MyProfile(),
+    const MyHome(),
+    const BrandsScreen(),
+    const MyOrders(),
+  ];
 
-   ///Nav Bar index
-    RxInt index = 1.obs;
+  ///Nav Bar index
+  RxInt index = 1.obs;
 
-    ///Nav Bar Function
-    dynamic navigatePages(index){
-      this.index.value = index;
-      update();
-    }
+  ///Nav Bar Function
+  dynamic navigatePages(index) {
+    this.index.value = index;
+    update();
+  }
 
   @override
   void onInit() {
+
     getSliderItem().then((value) {
+      sliderData.clear();
       value.forEach((element) {
         sliderData.add(PhoneModel.createModel(data: element));
       });
@@ -113,6 +130,7 @@ class HomeController extends GetxController {
     });
 
     getLatestSamsungItem().then((value) {
+      latestSamsungItem.clear();
       value.forEach((element) {
         latestSamsungItem.add(PhoneModel.createModel(data: element));
       });
@@ -120,6 +138,7 @@ class HomeController extends GetxController {
       update();
     });
     getLatestXiaomiItem().then((value) {
+      latestXiaomiItem.clear();
       value.forEach((element) {
         latestXiaomiItem.add(PhoneModel.createModel(data: element));
       });
@@ -127,6 +146,7 @@ class HomeController extends GetxController {
       update();
     });
     getLatestRealmeItem().then((value) {
+      latestRealmeItem.clear();
       value.forEach((element) {
         latestRealmeItem.add(PhoneModel.createModel(data: element));
       });
@@ -134,6 +154,13 @@ class HomeController extends GetxController {
       update();
     });
 
-
+    getMyOrders().then((value) {
+      myOrders.clear();
+      value.forEach((order) {
+        myOrders.add(OrderModel.createModel(data: order));
+        myOrdersIsLoading.value = false;
+        update();
+      });
+    });
   }
 }

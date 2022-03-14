@@ -62,7 +62,7 @@ class MyHome extends StatelessWidget {
                                           child: Hero(
                                             tag: element.device_name,
                                             child: Image.network(
-                                              element.image,
+                                              element.first_image,
                                               fit: BoxFit.cover,
                                               filterQuality: FilterQuality.high,
                                               isAntiAlias: true,
@@ -202,47 +202,47 @@ class MyHome extends StatelessWidget {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
 
-                      itemBuilder: (context, index) => AnimatedContainer(
-                        duration: const Duration(milliseconds: 450),
-                        margin: EdgeInsets.symmetric(
-                          horizontal: width * .035,
-                          vertical: height * .015,
-                        ),
-                        width: controller.samsungItemsIsLoading.value
-                            ? width * .1
-                            : width*.8,
-                        height: controller.samsungItemsIsLoading.value
-                            ? height * .051
-                            : height * .2,
-                        decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.circular(11.1),
-                          boxShadow: [
-                            BoxShadow(
-                              color: kSecondColor.withOpacity(0.25),
-                              blurRadius: 7,
-                              offset: const Offset(0, 7),
-                            ),
-                          ],
-                        ),
-                        child: controller.samsungItemsIsLoading.value
-                            ? const Center(
-                                child: CupertinoActivityIndicator(
-                                  color: kSecondColor,
-                                ),
-                              )
-                            : GestureDetector(
-                          onTap: () {
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          if(!controller.samsungItemsIsLoading.value){
                             Get.to(
-                                  () => PhoneSpecs(
-                                  phone: controller
-                                      .latestSamsungItem[
-                                  index]),
+                              () => PhoneSpecs(
+                                  phone: controller.latestSamsungItem[index]),
                             );
-                          },
-                              child: FittedBox(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
+                          }
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 450),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: width * .035,
+                            vertical: height * .015,
+                          ),
+                          width: controller.samsungItemsIsLoading.value
+                              ? width * .1
+                              : width*.8,
+                          height: controller.samsungItemsIsLoading.value
+                              ? height * .051
+                              : height * .2,
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(11.1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: kSecondColor.withOpacity(0.25),
+                                blurRadius: 7,
+                                offset: const Offset(0, 7),
+                              ),
+                            ],
+                          ),
+                          child: controller.samsungItemsIsLoading.value
+                              ? const Center(
+                                  child: CupertinoActivityIndicator(
+                                    color: kSecondColor,
+                                  ),
+                                )
+                              : FittedBox(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       FittedBox(
@@ -257,7 +257,7 @@ class MyHome extends StatelessWidget {
                                                 image: NetworkImage(
                                                   controller
                                                       .latestSamsungItem[index]
-                                                      .image,
+                                                      .first_image,
                                                 ),
                                                 fit: BoxFit.cover,
                                               ),
@@ -348,7 +348,7 @@ class MyHome extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                            ),
+                        ),
                       ),
                       itemCount: controller.latestSamsungItem.isEmpty
                           ? 1
@@ -402,45 +402,45 @@ class MyHome extends StatelessWidget {
                   child: Center(
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => AnimatedContainer(
-                        duration: const Duration(milliseconds: 450),
-                        margin: EdgeInsets.symmetric(
-                          horizontal: width * .035,
-                          vertical: height * .015,
-                        ),
-                        width: controller.xiaomiItemsIsLoading.value
-                            ? width * .1
-                            : width*.8,
-                        height: controller.xiaomiItemsIsLoading.value
-                            ? height * .051
-                            : height * .2,
-                        decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.circular(11.1),
-                          boxShadow: [
-                            BoxShadow(
-                              color: kSecondColor.withOpacity(0.25),
-                              blurRadius: 7,
-                              offset: const Offset(0, 7),
-                            ),
-                          ],
-                        ),
-                        child: controller.xiaomiItemsIsLoading.value
-                            ? const Center(
-                                child: CupertinoActivityIndicator(
-                                  color: kSecondColor,
-                                ),
-                              )
-                            : GestureDetector(
-                          onTap: () {
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          if(!controller.xiaomiItemsIsLoading.value){
                             Get.to(
-                                  () => PhoneSpecs(
-                                  phone: controller
-                                      .latestXiaomiItem[
-                                  index]),
+                              () => PhoneSpecs(
+                                  phone: controller.latestXiaomiItem[index]),
                             );
-                          },
-                              child: FittedBox(
+                          }
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 450),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: width * .035,
+                            vertical: height * .015,
+                          ),
+                          width: controller.xiaomiItemsIsLoading.value
+                              ? width * .1
+                              : width*.8,
+                          height: controller.xiaomiItemsIsLoading.value
+                              ? height * .051
+                              : height * .2,
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(11.1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: kSecondColor.withOpacity(0.25),
+                                blurRadius: 7,
+                                offset: const Offset(0, 7),
+                              ),
+                            ],
+                          ),
+                          child: controller.xiaomiItemsIsLoading.value
+                              ? const Center(
+                                  child: CupertinoActivityIndicator(
+                                    color: kSecondColor,
+                                  ),
+                                )
+                              : FittedBox(
                                   alignment: Alignment.centerLeft,
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -457,7 +457,7 @@ class MyHome extends StatelessWidget {
                                                 image: NetworkImage(
                                                   controller
                                                       .latestXiaomiItem[index]
-                                                      .image,
+                                                      .first_image,
                                                 ),
                                                 fit: BoxFit.cover,
                                               ),
@@ -546,7 +546,7 @@ class MyHome extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                            ),
+                        ),
                       ),
                       itemCount: controller.latestXiaomiItem.isEmpty
                           ? 1
@@ -600,153 +600,156 @@ class MyHome extends StatelessWidget {
                   child: Center(
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => AnimatedContainer(
-                        duration: const Duration(milliseconds: 450),
-                        margin: EdgeInsets.symmetric(
-                          horizontal: width * .035,
-                          vertical: height * .015,
-                        ),
-                        width: controller.realmeItemsIsLoading.value
-                            ? width * .1
-                            : width*.8,
-                        height: controller.realmeItemsIsLoading.value
-                            ? height * .051
-                            : height * .2,
-                        decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.circular(11.1),
-                          boxShadow: [
-                            BoxShadow(
-                              color: kSecondColor.withOpacity(0.25),
-                              blurRadius: 7,
-                              offset: const Offset(0, 7),
-                            ),
-                          ],
-                        ),
-                        child: controller.realmeItemsIsLoading.value
-                            ? const Center(
-                                child: CupertinoActivityIndicator(
-                                  color: kSecondColor,
-                                ),
-                              )
-                            : GestureDetector(
-                          onTap: () {
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                         if(!controller.realmeItemsIsLoading.value){
                             Get.to(
-                                  () => PhoneSpecs(
-                                  phone: controller
-                                      .latestRealmeItem[
-                                  index]),
+                              () => PhoneSpecs(
+                                  phone: controller.latestRealmeItem[index]),
                             );
-                          },
-                              child: FittedBox(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      FittedBox(
-                                        child: Hero(
-                                          tag: controller.latestRealmeItem[index]
-                                              .device_name,
-                                          child: Container(
-                                            width: width * .3,
-                                            height: height * .2,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                  controller
-                                                      .latestRealmeItem[index]
-                                                      .image,
+                          }
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 450),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: width * .035,
+                            vertical: height * .015,
+                          ),
+                          width: controller.realmeItemsIsLoading.value
+                              ? width * .1
+                              : width*.8,
+                          height: controller.realmeItemsIsLoading.value
+                              ? height * .051
+                              : height * .2,
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(11.1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: kSecondColor.withOpacity(0.25),
+                                blurRadius: 7,
+                                offset: const Offset(0, 7),
+                              ),
+                            ],
+                          ),
+                          child: controller.realmeItemsIsLoading.value
+                              ? const Center(
+                                  child: CupertinoActivityIndicator(
+                                    color: kSecondColor,
+                                  ),
+                                )
+                              : GestureDetector(
+
+                                child: FittedBox(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        FittedBox(
+                                          child: Hero(
+                                            tag: controller.latestRealmeItem[index]
+                                                .device_name,
+                                            child: Container(
+                                              width: width * .3,
+                                              height: height * .2,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    controller
+                                                        .latestRealmeItem[index]
+                                                        .first_image,
+                                                  ),
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                fit: BoxFit.cover,
+                                                borderRadius:
+                                                    BorderRadius.circular(11.1),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(11.1),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      FittedBox(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(
-                                            width * .025,
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              FittedBox(
-                                                child: Text(
-                                                  controller
-                                                      .latestRealmeItem[index]
-                                                      .device_name,
-                                                  style:
-                                                      textController.getTextStyle(
-                                                    style: const TextStyle(
-                                                        fontSize:
-                                                            kSubTitleFontSize,
-                                                        color: kSecondColor),
-                                                  ),
-                                                ),
-                                              ),
-                                              FittedBox(
-                                                child: Text(
-                                                  controller
-                                                      .latestRealmeItem[index]
-                                                      .first_price,
-                                                  style:
-                                                      textController.getTextStyle(
-                                                    style: const TextStyle(
-                                                        fontSize:
-                                                            kSubTitleFontSize,
-                                                        color: kSecondColor),
-                                                  ),
-                                                ),
-                                              ),
-                                              FittedBox(
-                                                child: Text(
-                                                  controller
-                                                      .latestRealmeItem[index]
-                                                      .second_price,
-                                                  style:
-                                                      textController.getTextStyle(
-                                                    style: const TextStyle(
-                                                        fontSize:
-                                                            kSubTitleFontSize,
-                                                        color: kSecondColor),
-                                                  ),
-                                                ),
-                                              ),
-                                              FittedBox(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: width * .5,
-                                                    top: height*.05,
-                                                  ),
-                                                  child: FittedBox(
-                                                    child: Text(
-                                                      'show more',
-                                                      style: textController
-                                                          .getTextStyle(
-                                                        style: const TextStyle(
+                                        FittedBox(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                              width * .025,
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                FittedBox(
+                                                  child: Text(
+                                                    controller
+                                                        .latestRealmeItem[index]
+                                                        .device_name,
+                                                    style:
+                                                        textController.getTextStyle(
+                                                      style: const TextStyle(
                                                           fontSize:
                                                               kSubTitleFontSize,
-                                                          color: kThirdColor,
+                                                          color: kSecondColor),
+                                                    ),
+                                                  ),
+                                                ),
+                                                FittedBox(
+                                                  child: Text(
+                                                    controller
+                                                        .latestRealmeItem[index]
+                                                        .first_price,
+                                                    style:
+                                                        textController.getTextStyle(
+                                                      style: const TextStyle(
+                                                          fontSize:
+                                                              kSubTitleFontSize,
+                                                          color: kSecondColor),
+                                                    ),
+                                                  ),
+                                                ),
+                                                FittedBox(
+                                                  child: Text(
+                                                    controller
+                                                        .latestRealmeItem[index]
+                                                        .second_price,
+                                                    style:
+                                                        textController.getTextStyle(
+                                                      style: const TextStyle(
+                                                          fontSize:
+                                                              kSubTitleFontSize,
+                                                          color: kSecondColor),
+                                                    ),
+                                                  ),
+                                                ),
+                                                FittedBox(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                      left: width * .5,
+                                                      top: height*.05,
+                                                    ),
+                                                    child: FittedBox(
+                                                      child: Text(
+                                                        'show more',
+                                                        style: textController
+                                                            .getTextStyle(
+                                                          style: const TextStyle(
+                                                            fontSize:
+                                                                kSubTitleFontSize,
+                                                            color: kThirdColor,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                            ),
+                              ),
+                        ),
                       ),
                       itemCount: controller.latestRealmeItem.isEmpty
                           ? 1

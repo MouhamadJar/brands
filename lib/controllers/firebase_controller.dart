@@ -12,17 +12,25 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class FirebaseController extends GetxController {
-  Future<void> login({required email, required password}) async {
+  RxBool isLoading =false.obs;
 
+  Future<void> login({required email, required password}) async {
+    isLoading.value = true;
+    update();
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) async {
       GetStorage().write('token', 'token');
       GetStorage().write('email', email);
       GetStorage().write('uId', value.user!.uid);
+      isLoading.value = false;
+      update();
       Get.snackbar('Welcome back ', 'Login successfully !',);
       Get.offAll(() => const HomeScreen());
+
     }).catchError((error) {
+      isLoading.value = false;
+      update();
       if (kDebugMode) {
         print(error.toString());
       }
@@ -36,8 +44,10 @@ class FirebaseController extends GetxController {
     required password,
     required username,
   }) async {
+    isLoading.value = true;
+    update();
     var cacheController = Get.put(CacheController());
-    GetStorage().write('token', 'token');
+
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(
       email: email,
@@ -45,7 +55,7 @@ class FirebaseController extends GetxController {
     )
         .then(
             (value) async {
-          GetStorage().write('token', value.user!.getIdToken());
+          GetStorage().write('token', 'token');
           GetStorage().write('uId', value.user!.uid);
           cacheController.saveCache(key: 'email', value: value.user!.email);
           await FirebaseFirestore.instance
@@ -57,10 +67,14 @@ class FirebaseController extends GetxController {
             'password': password,
             'image': 'https://cdn5.vectorstock.com/i/thumb-large/45/79/male-avatar-profile-picture-silhouette-light-vector-4684579.jpg',
           }).then((value) async {
+            isLoading.value = false;
+            update();
             Get.snackbar('Hello $username ', 'Signup successfully !',);
             Get.offAll(() => const HomeScreen());
           });
         }).catchError((error) {
+      isLoading.value = false;
+      update();
       Fluttertoast.showToast(
           msg: 'Something went wrong !',
           backgroundColor: Colors.red,

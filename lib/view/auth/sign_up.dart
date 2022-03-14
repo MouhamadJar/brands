@@ -192,18 +192,25 @@ class SignUp extends StatelessWidget {
                   SizedBox(
                     height: height * .05,
                   ),
-                  MyBottum(
-                    width: width,
-                    height: height,
-                    textController: textController,
-                    onTap: () async {
-                      await firebaseController
-                          .signup(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        username: fullNameController.text,
+                  GetBuilder<FirebaseController>(
+                    builder: (controller) {
+                      if(controller.isLoading.value){
+                        return const CircularProgressIndicator(color: kThirdColor,);
+                      }else{
+                      return MyBottum(
+                        width: width,
+                        height: height,
+                        textController: textController,
+                        onTap: () async {
+                          await firebaseController.signup(
+                            email: emailController.text.trimRight(),
+                            password: passwordController.text.trim(),
+                            username: fullNameController.text.trim(),
+                          );
+                        },
                       );
-                    },
+                    }
+                  }
                   ),
                   GestureDetector(
                     onTap: () {

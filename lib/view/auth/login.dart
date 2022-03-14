@@ -105,7 +105,7 @@ class Login extends StatelessWidget {
                           contentPadding: EdgeInsets.only(
                             top: height * .005 * (-1),
                             left: width * .03,
-                            bottom: height*.015,
+                            bottom: height * .015,
                           ),
                         ),
                         style: const TextStyle(
@@ -142,7 +142,7 @@ class Login extends StatelessWidget {
                           contentPadding: EdgeInsets.only(
                             top: height * .005 * (-1),
                             left: width * .03,
-                            bottom: height*.015,
+                            bottom: height * .015,
                           ),
                         ),
                         style: const TextStyle(
@@ -154,19 +154,24 @@ class Login extends StatelessWidget {
                   SizedBox(
                     height: height * .05,
                   ),
-                  MyBottum(
-                    width: width,
-                    height: height,
-                    textController: textController,
-                    onTap: () {
-                      firebaseController
-                          .login(
-                              email: emailController.text,
-                              password: passwordController.text)
-                          .then((value) {
+                  GetBuilder<FirebaseController>(
+                    builder: (controller) {
+                      if(controller.isLoading.value){
+                        return const CircularProgressIndicator(color: kThirdColor,);
+                      }else{return  MyBottum(
+                        width: width,
+                        height: height,
+                        textController: textController,
+                        onTap: () {
+                          firebaseController
+                              .login(
+                              email: emailController.text.trimRight(),
+                              password: passwordController.text.trim())
+                              .then((value) {});
+                        },
+                      );}
 
-                      });
-                    },
+                    }
                   ),
                   GestureDetector(
                     onTap: () {

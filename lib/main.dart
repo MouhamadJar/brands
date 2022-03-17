@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:brands_projects/component/constants.dart';
 import 'package:brands_projects/view/auth/first_screen.dart';
 import 'package:brands_projects/view/home/home.dart';
@@ -16,7 +18,7 @@ void main() async {
   await GetStorage.init();
   token =  GetStorage().read('token') ?? 'noToken';
   if (kDebugMode) {
-    print(token);
+    log(token);
   }
   runApp(
     const MyApp(),

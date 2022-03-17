@@ -4,6 +4,7 @@ import 'package:brands_projects/controllers/text_controller.dart';
 import 'package:brands_projects/view/auth/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../component/components.dart';
 
 class Login extends StatelessWidget {
@@ -50,15 +51,10 @@ class Login extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: height * .07),
+                    height: height*0.1,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text(
-                        'Logo',
-                        style: TextStyle(
-                          fontSize: textController.getSize('PRIMARY'),
-                          color: kPrimaryColor,
-                        ),
-                      ),
+                      child: Image.asset('images/Group 28.png'),
                     ),
                   ),
                   SizedBox(
@@ -70,9 +66,11 @@ class Login extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       child: Text(
                         'Welcome',
-                        style: TextStyle(
-                          fontSize: textController.getSize('PRIMARY'),
-                          color: kPrimaryColor,
+                        style:  GoogleFonts.sourceCodePro(
+                          textStyle: TextStyle(
+                            fontSize: textController.getSize('PRIMARY'),
+                            color: kPrimaryColor,
+                          ),
                         ),
                       ),
                     ),
@@ -185,9 +183,11 @@ class Login extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                         child: Text(
                           'Don\'t have account ?',
-                          style: TextStyle(
-                            fontSize: textController.getSize('TITLE'),
-                            color: kPrimaryColor,
+                          style:  GoogleFonts.sourceCodePro(
+                            textStyle: TextStyle(
+                              fontSize: textController.getSize('SUB'),
+                              color: kPrimaryColor,
+                            ),
                           ),
                         ),
                       ),

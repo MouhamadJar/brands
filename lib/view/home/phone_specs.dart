@@ -231,86 +231,163 @@ class PhoneSpecs extends StatelessWidget {
                 onTap: () {
                   Get.bottomSheet(
                     GetBuilder<CheckoutController>(builder: (controller) {
-                      return Padding(
-                        padding: EdgeInsets.all(width * .025),
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              controller: controller.numberController.value,
-                              decoration: InputDecoration(
-                                fillColor: kPrimaryColor,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(11.0),
-                                  borderSide:
-                                      const BorderSide(color: kThirdColor),
+                      return SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: width * .03,vertical: height*.035),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextFormField(
+                                controller: controller.nameController.value,
+                                decoration: InputDecoration(
+                                  fillColor: kPrimaryColor,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(11.0),
+                                    borderSide:
+                                        const BorderSide(color: kThirdColor),
+                                  ),
+                                  labelText: 'Enter your name',
+                                  labelStyle: textController.getTextStyle(
+                                    style: TextStyle(
+                                      fontSize: textController.getSize('SUB'),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(7.0),
+                                    borderSide:
+                                        const BorderSide(color: kThirdColor),
+                                  ),
+                                  focusColor: kThirdColor,
                                 ),
-                                labelText: 'Enter your number',
-                                labelStyle: textController.getTextStyle(
+                                keyboardType: TextInputType.name,
+                                style: textController.getTextStyle(
                                   style: TextStyle(
+                                    color: kThirdColor,
                                     fontSize: textController.getSize('SUB'),
                                   ),
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(7.0),
-                                  borderSide:
-                                      const BorderSide(color: kThirdColor),
-                                ),
-                                focusColor: kThirdColor,
                               ),
-                              style: textController.getTextStyle(
-                                style: TextStyle(
-                                  color: kThirdColor,
-                                  fontSize: textController.getSize('SUB'),
+                              SizedBox(
+                                width: width,
+                                height: height * .021,
+                              ),
+                              TextFormField(
+                                controller: controller.numberController.value,
+                                decoration: InputDecoration(
+                                  fillColor: kPrimaryColor,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(11.0),
+                                    borderSide:
+                                    const BorderSide(color: kThirdColor),
+                                  ),
+                                  labelText: 'Enter your number',
+                                  labelStyle: textController.getTextStyle(
+                                    style: TextStyle(
+                                      fontSize: textController.getSize('SUB'),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(7.0),
+                                    borderSide:
+                                    const BorderSide(color: kThirdColor),
+                                  ),
+                                  focusColor: kThirdColor,
+                                ),
+                                keyboardType: TextInputType.number,
+                                style: textController.getTextStyle(
+                                  style: TextStyle(
+                                    color: kThirdColor,
+                                    fontSize: textController.getSize('SUB'),
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: width,
-                              height: height * .1,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (!controller.isLoadingCheckout.value) {
-                                  checkoutController.checkout(
-                                    username: userController.me.value.username,
-                                      device_name: phone.device_name,
-                                      number:
-                                          controller.numberController.value.text,
-                                      uId: GetStorage().read('uId'));
-                                }
-                              },
-                              child: AnimatedContainer(
-                                decoration: BoxDecoration(
-                                  color: kSecondColor,
-                                  borderRadius: BorderRadius.circular(7.0),
+                              SizedBox(
+                                width: width,
+                                height: height * .021,
+                              ),
+                              TextFormField(
+                                controller: checkoutController.paymentMethodController.value,
+                                decoration: InputDecoration(
+                                  fillColor: kPrimaryColor,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(11.0),
+                                    borderSide:
+                                    const BorderSide(color: kThirdColor),
+                                  ),
+                                  labelText: 'Enter your paymentMethod',
+                                  labelStyle: textController.getTextStyle(
+                                    style: TextStyle(
+                                      fontSize: textController.getSize('SUB'),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(7.0),
+                                    borderSide:
+                                    const BorderSide(color: kThirdColor),
+                                  ),
+                                  focusColor: kThirdColor,
                                 ),
-                                duration: const Duration(milliseconds: 750),
-                                width: controller.isLoadingCheckout.value
-                                    ? width * .15
-                                    : width * .5,
-                                height: controller.isLoadingCheckout.value
-                                    ? height * .05
-                                    : height * .07,
-                                child: controller.isLoadingCheckout.value
-                                    ? const Center(
-                                        child: LinearProgressIndicator(
-                                        color: kThirdColor,
-                                      ))
-                                    : Center(
-                                        child: Text(
-                                          'request',
-                                          style: textController.getTextStyle(
-                                            style: TextStyle(
-                                              fontSize:
-                                                  textController.getSize('SUB'),
-                                              color: kThirdColor,
+                                keyboardType: TextInputType.name,
+                                style: textController.getTextStyle(
+                                  style: TextStyle(
+                                    color: kThirdColor,
+                                    fontSize: textController.getSize('SUB'),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: width,
+                                height: height * .1,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  if (!controller.isLoadingCheckout.value) {
+                                    if(controller.numberController.value.text.isNotEmpty){
+                                      checkoutController.checkout(
+                                        paymentMethod: controller.paymentMethodController.value.text,
+                                        username: controller.nameController.value.text,
+                                        device_name: phone.device_name,
+                                        number:
+                                        controller.numberController.value.text,
+                                        uId: GetStorage().read('uId'));
+                                    }else{
+                                      Get.snackbar('ops', 'please enter your full number',backgroundColor: Colors.red );
+                                    }
+                                  }
+                                },
+                                child: AnimatedContainer(
+                                  decoration: BoxDecoration(
+                                    color: kSecondColor,
+                                    borderRadius: BorderRadius.circular(7.0),
+                                  ),
+                                  duration: const Duration(milliseconds: 750),
+                                  width: controller.isLoadingCheckout.value
+                                      ? width * .15
+                                      : width * .5,
+                                  height: controller.isLoadingCheckout.value
+                                      ? height * .05
+                                      : height * .07,
+                                  child: controller.isLoadingCheckout.value
+                                      ? const Center(
+                                          child: LinearProgressIndicator(
+                                          color: kThirdColor,
+                                        ))
+                                      : Center(
+                                          child: Text(
+                                            'request',
+                                            style: textController.getTextStyle(
+                                              style: TextStyle(
+                                                fontSize:
+                                                    textController.getSize('SUB'),
+                                                color: kThirdColor,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     }),

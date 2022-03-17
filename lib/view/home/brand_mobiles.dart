@@ -33,13 +33,36 @@ class BrandMobiles extends StatelessWidget {
         homeController.update();
       })
           : null;
-    }else if(brand == 'r'){
+    }else if(brand == 'r')
+    {
       homeController.fullRealmeItemsIsLoading.value
           ? homeController.getLatestRealmeItem().then((value) {
         value.forEach((element) {
           homeController.fullRealmeItem.add(PhoneModel.createModel(data: element));
         });
         homeController.fullRealmeItemsIsLoading.value = false;
+        homeController.update();
+      })
+          : null;
+    }else if(brand == 'a')
+    {
+      homeController.fullAppleItemsIsLoading.value
+          ? homeController.getLatestAppleItem().then((value) {
+        value.forEach((element) {
+          homeController.fullAppleItem.add(PhoneModel.createModel(data: element));
+        });
+        homeController.fullAppleItemsIsLoading.value = false;
+        homeController.update();
+      })
+          : null;
+    }else if(brand == 'so')
+    {
+      homeController.fullSonyItemsIsLoading.value
+          ? homeController.getLatestSonyItem().then((value) {
+        value.forEach((element) {
+          homeController.fullSonyItem.add(PhoneModel.createModel(data: element));
+        });
+        homeController.fullSonyItemsIsLoading.value = false;
         homeController.update();
       })
           : null;
@@ -108,6 +131,42 @@ class BrandMobiles extends StatelessWidget {
               secondPrice: controller.fullRealmeItem[index].second_price,
             ), itemCount: controller.fullRealmeItem.length,
           );}
+          else if(brand == 'a'){
+            return controller.fullAppleItemsIsLoading.value
+                ? const Center(child: CircularProgressIndicator(color: kSecondColor,))
+                : ListView.separated(
+              scrollDirection: Axis.vertical,
+              separatorBuilder: (context,index) =>SizedBox(height: height*.025,) ,
+              itemBuilder: (context ,index) => phoneBuilder(
+                loading: controller.fullAppleItemsIsLoading.value,
+                width: width,
+                height: height,
+                image: controller.fullAppleItem[index].first_image,
+                firstPrice: controller.fullAppleItem[index].first_price,
+                index: index,
+                name: controller.fullAppleItem[index].device_name,
+                itemList:controller.fullAppleItem ,
+                secondPrice: controller.fullAppleItem[index].second_price,
+              ), itemCount: controller.fullAppleItem.length,
+            );}
+          else if(brand == 'so'){
+            return controller.fullSonyItemsIsLoading.value
+                ? const Center(child: CircularProgressIndicator(color: kSecondColor,))
+                : ListView.separated(
+              scrollDirection: Axis.vertical,
+              separatorBuilder: (context,index) =>SizedBox(height: height*.025,) ,
+              itemBuilder: (context ,index) => phoneBuilder(
+                loading: controller.fullSonyItemsIsLoading.value,
+                width: width,
+                height: height,
+                image: controller.fullSonyItem[index].first_image,
+                firstPrice: controller.fullSonyItem[index].first_price,
+                index: index,
+                name: controller.fullSonyItem[index].device_name,
+                itemList:controller.fullSonyItem ,
+                secondPrice: controller.fullSonyItem[index].second_price,
+              ), itemCount: controller.fullSonyItem.length,
+            );}
           else{
             return controller.fullRealmeItemsIsLoading.value
                 ? const Center(child: CircularProgressIndicator(color: kSecondColor,))

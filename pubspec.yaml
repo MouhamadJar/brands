@@ -45,6 +45,7 @@ dependencies:
   font_awesome_flutter:
   flutter_svg:
   image_picker:
+  http:
 
 
   #Firebase

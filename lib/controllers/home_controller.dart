@@ -49,6 +49,25 @@ class HomeController extends GetxController {
     return (response.docs);
   }
 
+  Future<dynamic> getLatestAppleItem() async {
+    QuerySnapshot<Map<String, dynamic>> response = await FirebaseFirestore
+        .instance
+        .collection('database')
+        .doc('brands')
+        .collection('apple')
+        .get();
+    return (response.docs);
+  }
+  Future<dynamic> getLatestSonyItem() async {
+    QuerySnapshot<Map<String, dynamic>> response = await FirebaseFirestore
+        .instance
+        .collection('database')
+        .doc('brands')
+        .collection('sony')
+        .get();
+    return (response.docs);
+  }
+
   ///get my orders
 
   Future<dynamic> getMyOrders() async {
@@ -65,17 +84,25 @@ class HomeController extends GetxController {
   RxBool samsungItemsIsLoading = true.obs;
   RxBool xiaomiItemsIsLoading = true.obs;
   RxBool realmeItemsIsLoading = true.obs;
+  RxBool sonyItemsIsLoading = true.obs;
+  RxBool appleItemsIsLoading = true.obs;
   RxBool fullSamsungItemsIsLoading = true.obs;
   RxBool fullXiaomiItemsIsLoading = true.obs;
   RxBool fullRealmeItemsIsLoading = true.obs;
+  RxBool fullAppleItemsIsLoading = true.obs;
+  RxBool fullSonyItemsIsLoading = true.obs;
   RxBool myOrdersIsLoading = true.obs;
 
   ///Item List
   List<PhoneModel> sliderData = [];
   List<PhoneModel> latestSamsungItem = [];
   List<PhoneModel> latestXiaomiItem = [];
+  List<PhoneModel> latestSonyItem = [];
+  List<PhoneModel> latestAppleItem = [];
   List<PhoneModel> latestRealmeItem = [];
   List<PhoneModel> fullSamsungItem = [];
+  List<PhoneModel> fullAppleItem = [];
+  List<PhoneModel> fullSonyItem = [];
   List<PhoneModel> fullXiaomiItem = [];
   List<PhoneModel> fullRealmeItem = [];
   List<OrderModel> myOrders = [];
@@ -151,6 +178,24 @@ class HomeController extends GetxController {
         latestRealmeItem.add(PhoneModel.createModel(data: element));
       });
       realmeItemsIsLoading.value = false;
+      update();
+    });
+
+    getLatestAppleItem().then((value) {
+      latestAppleItem.clear();
+      value.forEach((element) {
+        latestAppleItem.add(PhoneModel.createModel(data: element));
+      });
+      appleItemsIsLoading.value = false;
+      update();
+    });
+
+    getLatestSonyItem().then((value) {
+      latestSonyItem.clear();
+      value.forEach((element) {
+        latestSonyItem.add(PhoneModel.createModel(data: element));
+      });
+      sonyItemsIsLoading.value = false;
       update();
     });
 

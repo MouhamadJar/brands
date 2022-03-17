@@ -760,6 +760,412 @@ class MyHome extends StatelessWidget {
                   ),
                 );
               }),
+              SizedBox(height: height * .03),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FittedBox(
+                      child: Text(
+                        'Apple',
+                        style: textController.getTextStyle(
+                          style: const TextStyle(
+                            fontSize: kTitleFontSize,
+                            fontWeight: FontWeight.w600,
+                            color: kSecondColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: (){Get.to(()=>const BrandMobiles(brand: 'a'),);},
+                      child: FittedBox(
+                        child: Text(
+                          'more >',
+                          style: textController.getTextStyle(
+                            style: const TextStyle(
+                              fontSize: kSubTitleFontSize,
+                              fontWeight: FontWeight.w600,
+                              color: kThirdColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GetBuilder<HomeController>(builder: (controller) {
+                return SizedBox(
+                  height: height * .2,
+                  width: width,
+                  child: Center(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          if(!controller.appleItemsIsLoading.value){
+                            Get.to(
+                                  () => PhoneSpecs(
+                                  phone: controller.latestAppleItem[index]),
+                            );
+                          }
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 450),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: width * .035,
+                            vertical: height * .015,
+                          ),
+                          width: controller.appleItemsIsLoading.value
+                              ? width * .1
+                              : width*.8,
+                          height: controller.appleItemsIsLoading.value
+                              ? height * .051
+                              : height * .2,
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(11.1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: kSecondColor.withOpacity(0.25),
+                                blurRadius: 7,
+                                offset: const Offset(0, 7),
+                              ),
+                            ],
+                          ),
+                          child: controller.appleItemsIsLoading.value
+                              ? const Center(
+                            child: CupertinoActivityIndicator(
+                              color: kSecondColor,
+                            ),
+                          )
+                              : GestureDetector(
+
+                            child: FittedBox(
+                              alignment: Alignment.centerLeft,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  FittedBox(
+                                    child: Hero(
+                                      tag: controller.latestAppleItem[index]
+                                          .device_name,
+                                      child: Container(
+                                        width: width * .3,
+                                        height: height * .2,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              controller
+                                                  .latestAppleItem[index]
+                                                  .first_image,
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                          borderRadius:
+                                          BorderRadius.circular(11.1),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  FittedBox(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(
+                                        width * .025,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          FittedBox(
+                                            child: Text(
+                                              controller
+                                                  .latestAppleItem[index]
+                                                  .device_name,
+                                              style:
+                                              textController.getTextStyle(
+                                                style: const TextStyle(
+                                                    fontSize:
+                                                    kSubTitleFontSize,
+                                                    color: kSecondColor),
+                                              ),
+                                            ),
+                                          ),
+                                          FittedBox(
+                                            child: Text(
+                                              controller
+                                                  .latestAppleItem[index]
+                                                  .first_price,
+                                              style:
+                                              textController.getTextStyle(
+                                                style: const TextStyle(
+                                                    fontSize:
+                                                    kSubTitleFontSize,
+                                                    color: kSecondColor),
+                                              ),
+                                            ),
+                                          ),
+                                          FittedBox(
+                                            child: Text(
+                                              controller
+                                                  .latestAppleItem[index]
+                                                  .second_price,
+                                              style:
+                                              textController.getTextStyle(
+                                                style: const TextStyle(
+                                                    fontSize:
+                                                    kSubTitleFontSize,
+                                                    color: kSecondColor),
+                                              ),
+                                            ),
+                                          ),
+                                          FittedBox(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                left: width * .5,
+                                                top: height*.05,
+                                              ),
+                                              child: FittedBox(
+                                                child: Text(
+                                                  'show more',
+                                                  style: textController
+                                                      .getTextStyle(
+                                                    style: const TextStyle(
+                                                      fontSize:
+                                                      kSubTitleFontSize,
+                                                      color: kThirdColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      itemCount: controller.latestAppleItem.isEmpty
+                          ? 1
+                          : controller.latestAppleItem.length >= 5
+                          ? 5
+                          : controller.latestAppleItem.length,
+                    ),
+                  ),
+                );
+              }),
+              SizedBox(height: height * .03),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FittedBox(
+                      child: Text(
+                        'Sony',
+                        style: textController.getTextStyle(
+                          style: const TextStyle(
+                            fontSize: kTitleFontSize,
+                            fontWeight: FontWeight.w600,
+                            color: kSecondColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: (){Get.to(()=>const BrandMobiles(brand: 'so'),);},
+                      child: FittedBox(
+                        child: Text(
+                          'more >',
+                          style: textController.getTextStyle(
+                            style: const TextStyle(
+                              fontSize: kSubTitleFontSize,
+                              fontWeight: FontWeight.w600,
+                              color: kThirdColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GetBuilder<HomeController>(builder: (controller) {
+                return SizedBox(
+                  height: height * .2,
+                  width: width,
+                  child: Center(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          if(!controller.sonyItemsIsLoading.value){
+                            Get.to(
+                                  () => PhoneSpecs(
+                                  phone: controller.latestSonyItem[index]),
+                            );
+                          }
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 450),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: width * .035,
+                            vertical: height * .015,
+                          ),
+                          width: controller.sonyItemsIsLoading.value
+                              ? width * .1
+                              : width*.8,
+                          height: controller.sonyItemsIsLoading.value
+                              ? height * .051
+                              : height * .2,
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(11.1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: kSecondColor.withOpacity(0.25),
+                                blurRadius: 7,
+                                offset: const Offset(0, 7),
+                              ),
+                            ],
+                          ),
+                          child: controller.sonyItemsIsLoading.value
+                              ? const Center(
+                            child: CupertinoActivityIndicator(
+                              color: kSecondColor,
+                            ),
+                          )
+                              : GestureDetector(
+
+                            child: FittedBox(
+                              alignment: Alignment.centerLeft,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  FittedBox(
+                                    child: Hero(
+                                      tag: controller.latestSonyItem[index]
+                                          .device_name,
+                                      child: Container(
+                                        width: width * .3,
+                                        height: height * .2,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              controller
+                                                  .latestSonyItem[index]
+                                                  .first_image,
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                          borderRadius:
+                                          BorderRadius.circular(11.1),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  FittedBox(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(
+                                        width * .025,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          FittedBox(
+                                            child: Text(
+                                              controller
+                                                  .latestSonyItem[index]
+                                                  .device_name,
+                                              style:
+                                              textController.getTextStyle(
+                                                style: const TextStyle(
+                                                    fontSize:
+                                                    kSubTitleFontSize,
+                                                    color: kSecondColor),
+                                              ),
+                                            ),
+                                          ),
+                                          FittedBox(
+                                            child: Text(
+                                              controller
+                                                  .latestSonyItem[index]
+                                                  .first_price,
+                                              style:
+                                              textController.getTextStyle(
+                                                style: const TextStyle(
+                                                    fontSize:
+                                                    kSubTitleFontSize,
+                                                    color: kSecondColor),
+                                              ),
+                                            ),
+                                          ),
+                                          FittedBox(
+                                            child: Text(
+                                              controller
+                                                  .latestSonyItem[index]
+                                                  .second_price,
+                                              style:
+                                              textController.getTextStyle(
+                                                style: const TextStyle(
+                                                    fontSize:
+                                                    kSubTitleFontSize,
+                                                    color: kSecondColor),
+                                              ),
+                                            ),
+                                          ),
+                                          FittedBox(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                left: width * .5,
+                                                top: height*.05,
+                                              ),
+                                              child: FittedBox(
+                                                child: Text(
+                                                  'show more',
+                                                  style: textController
+                                                      .getTextStyle(
+                                                    style: const TextStyle(
+                                                      fontSize:
+                                                      kSubTitleFontSize,
+                                                      color: kThirdColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      itemCount: controller.latestSonyItem.isEmpty
+                          ? 1
+                          : controller.latestSonyItem.length >= 5
+                          ? 5
+                          : controller.latestSonyItem.length,
+                    ),
+                  ),
+                );
+              }),
             ],
           ),
         ),

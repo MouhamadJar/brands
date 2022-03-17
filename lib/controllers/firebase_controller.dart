@@ -1,7 +1,5 @@
 import 'package:brands_projects/component/constants.dart';
 import 'package:brands_projects/controllers/cache_controller.dart';
-import 'package:brands_projects/controllers/user_controller.dart';
-import 'package:brands_projects/models/user_model.dart';
 import 'package:brands_projects/view/home/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,7 +18,8 @@ class FirebaseController extends GetxController {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) async {
-      GetStorage().write('token', 'token');
+          print(await value.user!.getIdToken());
+      GetStorage().write('token',await value.user!.getIdToken());
       GetStorage().write('email', email);
       GetStorage().write('uId', value.user!.uid);
       isLoading.value = false;

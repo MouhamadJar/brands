@@ -65,6 +65,7 @@ class HomeScreen extends StatelessWidget {
     var userController = Get.put(USERModel(),permanent: true);
     var cacheController = Get.put(CacheController());
     var firebaseController = Get.put(FirebaseController());
+   // FirebaseFirestore
     return SafeArea(
       child: WillPopScope(
         onWillPop: _onWillPop,

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/text_controller.dart';
 import 'constants.dart';
@@ -51,9 +52,11 @@ class MyBottum extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Text(
               'Sign IN',
-              style: TextStyle(
-                fontSize: textController.getSize('TITLE'),
-                color: kPrimaryColor,
+              style:  GoogleFonts.sourceCodePro(
+                textStyle: TextStyle(
+                  fontSize: textController.getSize('TITLE'),
+                  color: kPrimaryColor,
+                ),
               ),
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:brands_projects/controllers/text_controller.dart';
 import 'package:brands_projects/view/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../component/components.dart';
 
 class SignUp extends StatelessWidget {
@@ -51,29 +52,26 @@ class SignUp extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: height * .07),
+                    height: height*0.1,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text(
-                        'Logo',
-                        style: TextStyle(
-                          fontSize: textController.getSize('PRIMARY'),
-                          color: kPrimaryColor,
-                        ),
-                      ),
+                      child: Image.asset('images/Group 28.png'),
                     ),
                   ),
                   SizedBox(
                     height: height * .05,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: height * .07),
+                    margin: EdgeInsets.only(top: height * .0),
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
                         'Welcome',
-                        style: TextStyle(
-                          fontSize: textController.getSize('PRIMARY'),
-                          color: kPrimaryColor,
+                        style:  GoogleFonts.sourceCodePro(
+                          textStyle: TextStyle(
+                            fontSize: textController.getSize('PRIMARY'),
+                            color: kPrimaryColor,
+                          ),
                         ),
                       ),
                     ),

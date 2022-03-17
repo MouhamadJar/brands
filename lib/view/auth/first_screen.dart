@@ -2,8 +2,10 @@ import 'package:brands_projects/component/constants.dart';
 import 'package:brands_projects/controllers/text_controller.dart';
 import 'package:brands_projects/view/auth/login.dart';
 import 'package:brands_projects/view/auth/sign_up.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../component/components.dart';
 
@@ -17,80 +19,79 @@ class FirstScreen extends StatelessWidget {
     var textController = Get.put(TextController());
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          height: height,
-          width: width,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'images/firstScreen.png',
-              ),
-              fit: BoxFit.fill,
-              isAntiAlias: true,
-              filterQuality: FilterQuality.high,
-            ),
-          ),
+        body: SingleChildScrollView(
           child: Container(
             height: height,
             width: width,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  'images/secondLayout.png',
+                  'images/firstScreen.png',
                 ),
                 fit: BoxFit.fill,
                 isAntiAlias: true,
                 filterQuality: FilterQuality.high,
               ),
             ),
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: height * .17),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      'Logo',
-                      style: TextStyle(
-                        fontSize: textController.getSize('PRIMARY'),
-                        color: kPrimaryColor,
-                      ),
-                    ),
+            child: Container(
+              height: height,
+              width: width,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    'images/secondLayout.png',
                   ),
+                  fit: BoxFit.fill,
+                  isAntiAlias: true,
+                  filterQuality: FilterQuality.high,
                 ),
-                SizedBox(
-                  height: height * .6,
-                ),
-                MyBottum(
-                    onTap: () {
-                      Get.to(
-                        () =>  Login(),
-                      );
-                    },
-                    width: width,
-                    height: height,
-                    textController: textController),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(
-                      () =>  SignUp(),
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(top: height * .02),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: height * .05),
+                    height: height*.17,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text(
-                        'New Account',
-                        style: TextStyle(
-                          fontSize: textController.getSize('TITLE'),
-                          color: kPrimaryColor,
+                      child: Image.asset('images/Group 28.png'),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * .6,
+                  ),
+                  MyBottum(
+                      onTap: () {
+                        Get.to(
+                          () =>  Login(),
+                        );
+                      },
+                      width: width,
+                      height: height,
+                      textController: textController),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        () =>  SignUp(),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: height * .02),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          'New Account',
+                          style: GoogleFonts.sourceCodePro(
+                            textStyle: TextStyle(
+                              fontSize: textController.getSize('TITLE'),
+                              color: kPrimaryColor,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
